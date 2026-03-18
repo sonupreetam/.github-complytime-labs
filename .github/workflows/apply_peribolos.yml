@@ -28,16 +28,13 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           repository: kubernetes-sigs/prow
-          ref: d01b8af18f00
-          sparse-checkout: |
-            cmd/ghproxy
-            cmd/peribolos
-          sparse-checkout-cone-mode: false
 
       - name: Build ghproxy and peribolos
+        env:
+          GOTOOLCHAIN: auto
         run: |
-          cd cmd/ghproxy && go build -o /tmp/ghproxy . && cd ../..
-          cd cmd/peribolos && go build -o /tmp/peribolos . && cd ../..
+          cd cmd/ghproxy && go mod tidy && go build -o /tmp/ghproxy . && cd ../..
+          cd cmd/peribolos && go mod tidy && go build -o /tmp/peribolos . && cd ../..
 
       - name: Apply peribolos.yaml
         env:
