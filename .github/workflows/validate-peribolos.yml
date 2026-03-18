@@ -1,0 +1,40 @@
+name: Verify Peribolos
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  project:
+    name: Verify peribolos
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6.3.0
+        with:
+          go-version-file: './go.mod'
+
+      - name: verify go modules and vendor directory
+        run: |
+          go mod tidy
+          go mod vendor
+          git diff --exit-code go.mod go.sum
+
+      - name: running unit tests
+        run: |
+          go test ./...
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: '3.x'
+          cache: 'pip'
+
+      - name: Install yamllint and check peribolos.yaml
+        run: pip install yamllint && yamllint peribolos.yaml

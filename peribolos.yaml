@@ -1,0 +1,88 @@
+orgs:
+  complytime-labs:
+    name: complytime-labs
+    default_repository_permission: read
+    has_organization_projects: true
+    has_repository_projects: true
+    members_can_create_repositories: true
+    admins:
+      - gvauter
+      - jflowers
+      - jpower432
+      - marcusburghardt
+      - sonupreetam
+    members:
+      - AlexXuan233
+      - beatrizmcouto
+      - bplaxco
+      - hbraswelrh
+      - huiwangredhat
+      - qduanmu
+    repos:
+      ".github":
+        default_branch: main
+        description: A repository to apply peribolos to manage organization complytime-labs.
+        has_projects: true
+        branches:
+          main:
+            protection:
+              required_status_checks:
+                contexts:
+                  - "Verify peribolos"
+                strict: true
+              required_pull_request_reviews:
+                required_approving_review_count: 1
+                require_code_owner_reviews: true
+              enforce_admins: true
+              restrictions: null
+      "baseline-demo":
+        default_branch: main
+        description: OSPS baseline demo
+        has_projects: true
+      "cac-content":
+        default_branch: main
+        description: CaC content fork
+        has_projects: true
+      "creme-brulee":
+        default_branch: main
+        description: ComplyTime Skills Discovery
+        has_projects: true
+      "gemara2oscal":
+        default_branch: main
+        description: A transpiler for converting the Gemara logical model to OSCAL
+        has_projects: true
+      "oscal-content":
+        default_branch: main
+        description: An OSCAL content repository with test data for ComplyTime
+        has_projects: true
+      "vagrant-boxes":
+        default_branch: main
+        description: Automation for creating vagrant boxes
+        has_projects: true
+    teams:
+      security-managers:
+        description: Enterprise security manager team
+        privacy: closed
+        members:
+          - bplaxco
+      complytime-labs-dev:
+        description: People working on complytime-labs repos
+        privacy: closed
+        maintainers:
+          - gvauter
+          - jpower432
+          - marcusburghardt
+          - sonupreetam
+        members:
+          - AlexXuan233
+          - beatrizmcouto
+          - hbraswelrh
+          - huiwangredhat
+          - qduanmu
+        repos:
+          baseline-demo: write
+          cac-content: write
+          creme-brulee: write
+          gemara2oscal: write
+          oscal-content: write
+          vagrant-boxes: write
